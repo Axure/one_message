@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>逼死强迫症系列 - 1 messages 头像生成器</title>
+    </head>
+    <body>
+        <p>Add one message mark - HTML Canvas Demo &nbsp;&nbsp; by <a href="http://blog.sandtears.com/">Sandtears</a>.</p>
+        <p>接下来，请选择您要处理的图片，<br />选好后点击 "Submit" 和 "添加角标" 两个按钮。</p>
+        <form id="img_form" enctype="multipart/form-data">
+            <input type="file" id="img"/>
+            <button type="button" onclick="load()">Submit</button>
+            <button type="button" onclick="draw()">添加角标</button>
+        </form>
+        <canvas id="my_canvas" width="400" height="400">
+            您的浏览器不支持本应用。
+        </canvas>
+        
+        <script>
+            function load() {
+                // load local image
+                var canvas = document.getElementById('my_canvas')
+                  , ctx = canvas.getContext('2d')
+                  , img = new Image()
+                  , f = document.getElementById('img').files[0]
+                  , url = window.URL || window.webkitURL
+                  , src = url.createObjectURL(f);
+                
+                img.onload = function(){
+                    canvas.width = img.width;
+                    canvas.height = img.height;
+                    ctx.drawImage(img, 0, 0)
+                    url.revokeObjectURL(src);    
+                }
+                img.src = src;
+            }
+
+            function draw() {
+                // draw a circle
+                var canvas = document.getElementById('my_canvas')
+                  , ctx = canvas.getContext('2d');
+                ctx.beginPath();
+                var length = canvas.width;
+                if (length > canvas.height) length = canvas.height;
+                var size = 0.33;  // the circle's size
+                var radius = length * size / 2;
+                ctx.arc(canvas.width - radius, radius, radius, 0, Math.PI * 2, true);
+                ctx.fillStyle = '#FF0000';
+                ctx.fill();
+                
+                // draw a '1'
+                ctx.font = 'Bold ' + radius * 2 + 'px Arial';
+                ctx.textAlign = 'left';
+                ctx.fillStyle = '#FFFFFF';
+                ctx.fillText('1', canvas.width - 1.6 * radius, 1.7 * radius);
+            }
+        </script>
+    </body>
+</html>

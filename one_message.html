@@ -6,11 +6,12 @@
     </head>
     <body>
         <p>Add one message mark - HTML Canvas Demo &nbsp;&nbsp; by <a href="http://blog.sandtears.com/">Sandtears</a>.</p>
-        <p>接下来，请选择您要处理的图片，<br />选好后点击 "Submit" 和 "添加角标" 两个按钮。</p>
+        <p>接下来，请选择您要处理的图片，<br />选好后点击 "Submit" 和 "添加角标" 两个按钮生成图片<br />之后保存图片即可。</p>
         <form id="img_form" enctype="multipart/form-data">
             <input type="file" id="img"/>
             <button type="button" onclick="load()">Submit</button>
             <button type="button" onclick="draw()">添加角标</button>
+            <button type="button" onclick="save()">保存图片</button>
         </form>
         <canvas id="my_canvas" width="400" height="400">
             您的浏览器不支持本应用。
@@ -53,6 +54,12 @@
                 ctx.textAlign = 'left';
                 ctx.fillStyle = '#FFFFFF';
                 ctx.fillText('1', canvas.width - 1.6 * radius, 1.7 * radius);
+            }
+            
+            function save() {
+                var canvas = document.getElementById('my_canvas');
+                var strDataURI = canvas.toDataURL("image/jpeg");
+                window.location.href=strDataURI;
             }
         </script>
     </body>
